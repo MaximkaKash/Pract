@@ -15,7 +15,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ("id", "name")
 
 
-class userProfileSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
