@@ -4,7 +4,7 @@ from rest_framework import generics
 from .serializers import PostSerializer, CategorySerializer
 from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView, )
 from rest_framework.permissions import IsAuthenticated
-from .models import userProfile
+from .models import UserProfile
 from .permissions import IsOwnerProfileOrReadOnly
 from .serializers import userProfileSerializer
 
@@ -29,7 +29,7 @@ class CategoryAPIView(generics.ListAPIView):
 
 
 class UserProfileListCreateView(ListCreateAPIView):
-    queryset = userProfile.objects.all()
+    queryset = UserProfile.objects.all()
     serializer_class = userProfileSerializer
     permission_classes = [IsAuthenticated]
 
@@ -39,6 +39,6 @@ class UserProfileListCreateView(ListCreateAPIView):
 
 
 class userProfileDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = userProfile.objects.all()
+    queryset = UserProfile.objects.all()
     serializer_class = userProfileSerializer
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
