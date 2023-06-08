@@ -22,7 +22,7 @@ class BaseContent(models.Model):
 
 
 class Post(BaseContent):
-    name = models.CharField(max_length=30, null=True, blank=True, verbose_name="Main")
+    name = models.CharField(max_length=30, null=True, blank=True)
     description = models.TextField(null=True, blank=True, verbose_name="Description")
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
@@ -34,7 +34,7 @@ class Comment(BaseContent):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=30, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -76,6 +76,3 @@ def log_profile_saved(sender, instance, **kwargs):
     Log.objects.create(
         message=f"profile {instance} is saved"
     )
-
-
-

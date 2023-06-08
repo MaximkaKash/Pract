@@ -1,18 +1,20 @@
 from rest_framework import serializers
 from Blog.models import Post, Category, UserProfile
 from django.contrib.auth.models import User
+from djoser.serializers import UserSerializer
+
 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ("id", "name", "category", "author", "created_on")
+        fields = "__all__"
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ("id", "name")
+        fields = "__all__"
 
 
 class UserProfileSerializer(serializers.ModelSerializer):

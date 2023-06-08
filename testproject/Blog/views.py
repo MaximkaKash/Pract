@@ -13,23 +13,12 @@ from rest_framework.decorators import action
 # def index(request):
 #     return render(request, 'Index.html')
 
-class PostAPIView(generics.ListAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-
-    # def list(self, request):
-    #     # Note the use of `get_queryset()` instead of `self.queryset`
-    #     queryset = self.get_queryset()
-    #     serializer = PostSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
 
-class CategoryAPIView(generics.ListAPIView):
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 

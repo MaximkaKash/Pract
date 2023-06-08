@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework.test import APIClient
 from Blog.models import UserProfile
-
+from django.test import TestCase
 client = APIClient()
 
 
@@ -23,3 +23,4 @@ def test_register_user():
     print(response.json())
     # assert response.status_code == 200
     # assert response.
+
