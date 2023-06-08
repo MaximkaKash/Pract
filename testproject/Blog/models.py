@@ -29,6 +29,9 @@ class Post(BaseContent):
     description = models.TextField(null=True, blank=True, verbose_name="Description")
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Comment(BaseContent):
     # author = models.CharField(max_length=30, null=True, blank=True)S

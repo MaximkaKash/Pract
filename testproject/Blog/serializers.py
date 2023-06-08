@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from Blog.models import Post, Category, UserProfile
+from Blog.models import Post, Category, UserProfile, Comment
 from django.contrib.auth.models import User
 from djoser.serializers import UserSerializer
 
@@ -30,3 +30,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = "__all__"

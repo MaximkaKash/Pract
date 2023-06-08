@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from Blog.models import *
 from rest_framework import generics
-from .serializers import PostSerializer, CategorySerializer, UserSerializer, ProfileSerializer
+from .serializers import PostSerializer, CategorySerializer, UserSerializer, ProfileSerializer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import UserProfile
 from .permissions import IsOwnerProfileOrReadOnly
@@ -18,9 +18,17 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated,]
+
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = IsAdminUser
 
 
 class UserViewSet(viewsets.ModelViewSet):
