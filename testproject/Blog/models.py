@@ -12,6 +12,9 @@ import datetime
 class Category(models.Model):
     name = models.CharField(max_length=30, null=True, blank=True, verbose_name="Category")
 
+    def __str__(self):
+        return self.name
+
 
 class BaseContent(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)

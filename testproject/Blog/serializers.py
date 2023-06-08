@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from djoser.serializers import UserSerializer
 
 
-
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
@@ -17,7 +16,15 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
+
+
+class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
 
     class Meta:

@@ -1,6 +1,5 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserProfileListCreateView, userProfileDetailView
 from .views import *
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework import routers
@@ -8,15 +7,14 @@ from rest_framework import routers
 router = routers.SimpleRouter()
 router.register(r'posts', PostViewSet)
 router.register(r'categorys', CategoryViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'profiles', ProfileViewSet)
 
 urlpatterns = [
     # path('', index, name='index'),
     path('api/', include(router.urls)),
     path('api/', include(router.urls)),
-    # gets all user profiles and create a new profile
-    path("all-profiles", UserProfileListCreateView.as_view(), name="all-profiles"),
-    # retrieves profile details of the currently logged in user
-    path("profile/<int:pk>", userProfileDetailView.as_view(), name="profile"),
+    path('api/', include(router.urls)),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:
