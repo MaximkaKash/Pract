@@ -17,7 +17,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    # user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = UserProfile
@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    # user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = UserProfile
@@ -38,3 +38,4 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = "__all__"
+
