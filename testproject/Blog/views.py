@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.decorators import permission_classes
 from rest_framework.routers import DefaultRouter
 
 from Blog.models import *
@@ -16,10 +17,6 @@ from djoser.serializers import UserSerializer
 from rest_framework.authtoken.models import Token
 
 
-# def my_view(request):
-#     user = request.user
-#     token, created = Token.objects.get_or_create(user=user)
-
 # def index(request):
 #     return render(request, 'Index.html')
 
@@ -32,13 +29,14 @@ class PostViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = {
-        'list': [IsAuthenticatedOrReadOnly],
-        'create': [IsAuthenticated],
-        'update': [IsAuthenticated],
-        'partial_update': [IsAuthenticated],
-        'destroy': [IsAuthenticated],
-    }
+    # permission_classes = {
+    #     'list': [IsAuthenticatedOrReadOnly],
+    #     'create': [IsAuthenticated],
+    #     'update': [IsAuthenticated],
+    #     'partial_update': [IsAuthenticated],
+    #     'destroy': [IsAuthenticated],
+    # }
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -50,12 +48,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, ]
-    #
-    # def retrieve(self, request, pk=None):
-    #     queryset = User.objects.all()
-    #     user = get_object_or_404(queryset, pk=pk)
-    #     serializer = UserSerializer(user)
-    #     return Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+
+        return super().list(request, *args, **kwargs)
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
