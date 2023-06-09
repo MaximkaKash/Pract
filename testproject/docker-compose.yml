@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sport-web
+    #    restart: always
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    #    networks:
+    #      - pract
+    volumes:
+      - .:/test
+
+  db:
+    image: postgres:12
+    container_name: sport-postgres
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  postgres_data:
+#    networks:
+#      - pract
+
+#  volumes:
+#    #  letsencrypt:
+#    postgres_data:
+#
+#  networks:
+#    pract:
+
+
+#      driver: bridge
