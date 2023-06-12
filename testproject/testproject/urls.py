@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Blog.views import ProfileViewSet
-
+from djoser import urls
 
 urlpatterns = [
     path('reset/', ProfileViewSet.as_view, name='reset'),

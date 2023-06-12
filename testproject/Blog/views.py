@@ -19,22 +19,32 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (PostPermission,)
-    http_method_names = ['get', 'delete', 'put', 'delete']
+    http_method_names = ['get', 'delete', 'put', 'post']
 
 
 @extend_schema(tags=['comment'])
-class CommentViewSet(viewsets.ModelViewSet):
+class CommentViewSet(viewsets.GenericViewSet,
+                     viewsets.mixins.ListModelMixin,
+                     viewsets.mixins.CreateModelMixin,
+                     viewsets.mixins.DestroyModelMixin,
+                     viewsets.mixins.UpdateModelMixin
+                     ):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    http_method_names = ['get', 'delete', 'put', 'delete']
-    permission_classes = (CommentPermission, )
+    http_method_names = ['get', 'delete', 'put', 'post']
+    permission_classes = (CommentPermission,)
+
 
 @extend_schema(tags=['category'])
-class CategoryViewSet(viewsets.ModelViewSet):
+class CategoryViewSet(viewsets.GenericViewSet,
+                      viewsets.mixins.ListModelMixin,
+                      viewsets.mixins.CreateModelMixin,
+                      viewsets.mixins.DestroyModelMixin,
+                      viewsets.mixins.UpdateModelMixin):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = (CategoryPermission,)
-    http_method_names = ['get', 'delete', 'put', 'delete']
+    http_method_names = ['get', 'delete', 'put', 'post']
 
 
 @extend_schema(tags=['user'])
@@ -42,7 +52,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserSerializera
     permission_classes = [IsAuthenticatedOrReadOnly, ]
-    http_method_names = ['get', 'delete', 'put', 'delete']
+    http_method_names = ['get', 'delete', 'put', 'post']
 
 
 @extend_schema(tags=['profile'])
@@ -50,20 +60,7 @@ class ProfileViewSet(viewsets.ModelViewSet, RetrieveModelMixin):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsAdminUser, ]
-    http_method_names = ['get', 'delete', 'put', 'delete']
-    # def retrieve(self, request, *args, **kwargs):
-
-    # @extend_schema(
-    #     parameters=[
-    #         QuerySerializer,  # serializer fields are converted to parameters
-    #         OpenApiParameter("nested", QuerySerializer),  # serializer object is converted to a parameter
-    #         OpenApiParameter("queryparam1", OpenApiTypes.UUID, OpenApiParameter.QUERY),
-    #         OpenApiParameter("pk", OpenApiTypes.UUID, OpenApiParameter.PATH),  # path variable was overridden
-    #     ],
-    #     request=YourRequestSerializer,
-    #     responses=YourResponseSerializer,
-    #     # more customizations
-    # )
+    http_method_names = ['get', 'delete', 'put', 'post']
 
 
 class UserCre(mixins.CreateModelMixin, viewsets.GenericViewSet):
