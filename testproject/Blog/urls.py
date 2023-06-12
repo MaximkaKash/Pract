@@ -12,7 +12,6 @@ router.register(r'profiles', ProfileViewSet)
 router.register(r'comments', CommentViewSet)
 
 urlpatterns = [
-    # path('', index, name='index'),
     path('api/', include(router.urls)),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:

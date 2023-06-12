@@ -13,17 +13,26 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from djoser.serializers import UserSerializer
-
+from django.core.mail import send_mail
 from rest_framework.authtoken.models import Token
+from django.shortcuts import redirect
 
-
-# def index(request):
-#     return render(request, 'Index.html')
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, ]
+    permission_classes = [AllowAny, ]
+
+    def list(self, request, *args, **kwargs):
+        try:
+            send_mail(
+                subject='Add an eye-catching subject',
+                message='asad',
+                from_email='some@mail.ru',
+                recipient_list=['maximkanashyts@gmail.com', ])
+        except Exception as err:
+            print(err)
+        return super().list(request)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -50,7 +59,6 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, ]
 
     def list(self, request, *args, **kwargs):
-
         return super().list(request, *args, **kwargs)
 
 
