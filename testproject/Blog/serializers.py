@@ -17,12 +17,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     # user = serializers.StringRelatedField(read_only=True)
-#
-#     class Meta:
-#         model = UserProfile
-#         fields = '__all__'
+class UserSerializera(serializers.ModelSerializer):
+    # user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -34,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    # user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Comment

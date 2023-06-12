@@ -8,12 +8,13 @@ from rest_framework import routers
 router = routers.SimpleRouter()
 router.register(r'posts', PostViewSet)
 router.register(r'categorys', CategoryViewSet)
-# router.register(r'users', UserViewSet)
 router.register(r'profiles', ProfileViewSet)
+router.register(r'users',UserViewSet)
 router.register(r'comments', CommentViewSet)
 router.register(r'create', UserCre)
 
 urlpatterns = [
+
     path('api/', include(router.urls)),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:

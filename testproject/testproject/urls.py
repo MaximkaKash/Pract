@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from Blog.views import ProfileViewSet
 
-from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
+    path('reset/', ProfileViewSet.as_view, name='reset'),
     path('admin/', admin.site.urls),
     path('', include('Blog.urls')),
     path('auth/', include('djoser.urls.jwt')),
