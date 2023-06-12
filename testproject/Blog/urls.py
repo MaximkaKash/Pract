@@ -1,3 +1,4 @@
+import requests
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
@@ -7,9 +8,10 @@ from rest_framework import routers
 router = routers.SimpleRouter()
 router.register(r'posts', PostViewSet)
 router.register(r'categorys', CategoryViewSet)
-router.register(r'users', UserViewSet)
+# router.register(r'users', UserViewSet)
 router.register(r'profiles', ProfileViewSet)
 router.register(r'comments', CommentViewSet)
+router.register(r'create', UserCre)
 
 urlpatterns = [
     path('api/', include(router.urls)),
