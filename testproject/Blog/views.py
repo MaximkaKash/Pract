@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import permission_classes, api_view
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.routers import DefaultRouter
 
 from Blog.models import *
-from rest_framework import generics
+from rest_framework import generics, status
 from .serializers import PostSerializer, CategorySerializer, UserSerializer, ProfileSerializer, CommentSerializer, \
     UserCe
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny, IsAuthenticatedOrReadOnly
@@ -56,8 +57,22 @@ class CommentViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [AllowAny, ]
     http_method_names = ['get', 'delete', 'put']
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        try:
+            # Получение объекта из базы данных по заданному 'pk'
+            instance = Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Response({"error": "Object not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            # Создание сериализатора для объекта
+        serializer = CategorySerializer(instance)
+
+        # Возвращение сериализованных данных в качестве ответа
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # class UserViewSet(viewsets.ModelViewSet):
@@ -70,12 +85,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
 #         return super().list(request, *args, **kwargs)
 
 @extend_schema(tags=['profile'])
-class ProfileViewSet(viewsets.ModelViewSet):
+class ProfileViewSet(viewsets.ModelViewSet, RetrieveModelMixin):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
     # permission_classes = [IsOwnerProfileOrReadOnly, ]
     permission_classes = [IsAdminUser, ]
     http_method_names = ['get', 'delete', 'put']
+    # def retrieve(self, request, *args, **kwargs):
 
     # @extend_schema(
     #     parameters=[
