@@ -194,3 +194,13 @@ EMAIL_USE_SSL = False
 
 
 AUTH_USER_MODEL = 'Blog.UserProfile'
+# DJOSER_CONFIG = {
+#     'url_patterns': {
+#         'user': None,  # убираем /auth/users/
+#         'password': 'password/',
+#         'token': 'token/',
+#         'token_verify': 'token/verify/',
+#         'token_refresh': 'token/refresh/',
+#     },
+#     # другие настройки...
+# }
